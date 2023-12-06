@@ -1,4 +1,5 @@
 import run from "aocrunner"
+import { log } from "console"
 
 const parseInput = (rawInput: string) => rawInput
 
@@ -10,7 +11,7 @@ function hasSymboleAt(
   x: number,
   y: number,
   validation: Function,
-): object | boolean {
+): { x: number; y: number } | null {
   const rows = grid.length
   const cols = grid[0].length
 
@@ -91,7 +92,7 @@ const part2 = (rawInput: string) => {
   const input = parseInput(rawInput)
   const grid = input.split("\n").map((line) => line.split(""))
 
-  const gears = {}
+  const gears: { value?: string; gearKeys?: string[] } = {}
   for (const [y, row] of grid.entries()) {
     let part: { value: string; gearKeys?: string[] } = {
       value: "",
@@ -101,6 +102,7 @@ const part2 = (rawInput: string) => {
       if (isDigit(element)) {
         part.value += element
         let hasGearAT = hasSymboleAt(grid, x, y, isGear)
+
         if (hasGearAT) {
           let key = hasGearAT.x + "_" + hasGearAT.y
           if (!part.gearKeys.includes(key)) {
@@ -140,6 +142,7 @@ const part2 = (rawInput: string) => {
       }
     }
   }
+  console.log(gears)
 
   let sum = 0
   Object.values(gears).forEach((values) => {
@@ -193,5 +196,5 @@ run({
     solution: part2,
   },
   trimTestInputs: true,
-  onlyTests: false,
+  onlyTests: true,
 })
