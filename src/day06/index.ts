@@ -54,12 +54,12 @@ const part2 = (rawInput: string) => {
   const time = times[0]
   const distance = distances[0]
 
-  let record = 0
+  let wins = 0
   for (let i = 0; i < time; i++) {
-    if ((time - i) * i > distance) record++
+    if ((time - i) * i > distance) wins++
   }
 
-  return record
+  return wins
 }
 
 run({
